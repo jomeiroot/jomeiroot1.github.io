@@ -2,206 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>I love you Ysobel</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@300;500&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Silly Blob Universe</title>
   <style>
-    :root {
-      --primary: #ff6e6e;
-      --secondary: #f8cdda;
-      --bg: #fffaf7;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
+    /* Full‐screen confetti background */
     body {
       margin: 0;
-      font-family: 'Raleway', sans-serif;
-      background: linear-gradient(135deg, var(--secondary), var(--bg));
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #333;
-      overflow-x: hidden;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 4rem);
-      margin: 0 0 2rem;
-      color: var(--primary);
-      text-align: center;
-      animation: fadeIn 2s ease-out forwards;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Comic Sans MS', sans-serif;
+      background: #fffae6;
       position: relative;
-      z-index: 2;
     }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Heart animation */
-    .hearts {
+    .confetti {
       position: fixed;
-      top: 0;
+      top: -10%;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
+      background-image:
+        radial-gradient(circle at 10% 20%, #FFC700 2px, transparent 2px),
+        radial-gradient(circle at 70% 50%, #FF0000 2px, transparent 2px),
+        radial-gradient(circle at 40% 80%, #00C9FF 2px, transparent 2px);
+      background-size: 50px 50px;
+      animation: fall 5s infinite linear;
+      opacity: 0.6;
+    }
+    @keyframes fall {
+      to { transform: translateY(120%); }
     }
 
-    .hearts span {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: var(--primary);
-      transform: rotate(45deg);
-      opacity: 0.8;
-      animation: float 8s linear infinite;
-    }
-
-    .hearts span::before,
-    .hearts span::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: var(--primary);
-      border-radius: 50%;
-    }
-
-    .hearts span::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .hearts span::after {
-      left: -10px;
-      top: 0;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(45deg);
-      }
-      100% {
-        transform: translateY(-10vh) rotate(45deg);
-      }
-    }
-
-    .gallery {
-      display: grid;
-      gap: 1.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      max-width: 1000px;
-      width: 90%;
-      padding-bottom: 2rem;
+    /* Centered container */
+    .container {
       position: relative;
-      z-index: 2;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
     }
 
-    figure {
-      margin: 0;
-      position: relative;
-      overflow: hidden;
-      border-radius: 1rem;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+    h1 {
+      font-size: 3rem;
+      color: #ff5e5e;
+      text-shadow: 2px 2px #fbff00;
+      margin-bottom: 1rem;
     }
 
-    figure:hover {
-      transform: translateY(-5px);
+    /* The dancing blob */
+    .blob {
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle at 35% 35%, #8AFF6B, #0B6623);
+      border-radius: 50% 50% 60% 60%;
+      margin: 0 auto 1rem;
+      animation: dance 1s infinite ease-in-out alternate;
+      cursor: pointer;
+    }
+    @keyframes dance {
+      from { transform: scale(1) rotate(0deg); }
+      to   { transform: scale(1.1) rotate(10deg); }
     }
 
-    figure img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: brightness(90%);
-      transition: filter 0.3s ease;
+    /* Phrase box */
+    .phrase-box {
+      margin-top: 1.5rem;
+      font-size: 1.5rem;
+      color: #333;
+      min-height: 2em;
     }
 
-    figure:hover img {
-      filter: brightness(105%);
-    }
-
-    figcaption {
+    /* Giggle bubble */
+    .bubble {
       position: absolute;
-      bottom: 0;
-      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -200%);
+      font-size: 1.2rem;
+      background: #fff;
       padding: 0.5rem 1rem;
-      background: rgba(0, 0, 0, 0.45);
-      color: #fff;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+      border-radius: 1rem;
+      border: 2px dashed #ff5e5e;
+      display: none;
+      animation: bubbleUp 1s forwards;
     }
-
-    footer {
-      margin-top: auto;
-      padding: 1rem;
-      font-size: 0.8rem;
-      color: #555;
-      position: relative;
-      z-index: 2;
-    }
-
-    a {
-      color: inherit;
+    @keyframes bubbleUp {
+      0% { opacity: 0; transform: translate(-50%, -200%) scale(0.5); }
+      100% { opacity: 1; transform: translate(-50%, -240%) scale(1); }
     }
   </style>
 </head>
 <body>
+  <div class="confetti"></div>
 
-  <!-- Animated hearts background -->
-  <div class="hearts">
-    <span style="left: 5%; animation-delay: 0s; animation-duration: 7s;"></span>
-    <span style="left: 15%; animation-delay: 2s; animation-duration: 9s;"></span>
-    <span style="left: 25%; animation-delay: 4s; animation-duration: 8s;"></span>
-    <span style="left: 35%; animation-delay: 1s; animation-duration: 6s;"></span>
-    <span style="left: 45%; animation-delay: 3s; animation-duration: 10s;"></span>
-    <span style="left: 55%; animation-delay: 0.5s; animation-duration: 7.5s;"></span>
-    <span style="left: 65%; animation-delay: 5s; animation-duration: 8.5s;"></span>
-    <span style="left: 75%; animation-delay: 2.5s; animation-duration: 9.5s;"></span>
-    <span style="left: 85%; animation-delay: 1.5s; animation-duration: 7s;"></span>
-    <span style="left: 95%; animation-delay: 4.5s; animation-duration: 11s;"></span>
+  <div class="container">
+    <h1>🌀 Welcome to the Silly Blob Universe! 🌀</h1>
+    <div class="blob" id="blob"></div>
+    <div class="phrase-box" id="phrase">Click the blob for a silly thought…</div>
+    <div class="bubble" id="bubble">Hee-hee-hee!</div>
   </div>
 
-  <h1>I love you Ysobel</h1>
+  <script>
+    const phrases = [
+      "Why do cookies always crumble under pressure? 🍪",
+      "I once saw a giraffe do the moonwalk… in my dreams. 🦒",
+      "Bananas are just upside-down umbrellas! 🍌☔",
+      "My socks keep running away to join the circus! 🤹‍♂️🧦",
+      "If cows wore hats, would they tip them? 🐮🎩",
+      "I taught my goldfish algebra. It’s still failing. 🐟➗",
+      "Invisible dragons are my best friends. 🐉✨",
+      "Never trust a pencil—it's always sketchy. ✏️",
+      "I tried whispering to my refrigerator. It avoids eye contact. 🧊",
+      "Moon cheese tastes like starlight. 🌙🧀"
+    ];
 
-  <section class="gallery">
-    <figure>
-      <img src="https://images.unsplash.com/photo-1582560472162-74454132097a?auto=format&fit=crop&w=800&q=80" alt="Cormorant" />
-      <figcaption>Cormorant</figcaption>
-    </figure>
+    let blob = document.getElementById('blob');
+    let phraseBox = document.getElementById('phrase');
+    let bubble = document.getElementById('bubble');
 
-    <figure>
-      <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80" alt="Scorpion" />
-      <figcaption>Scorpion</figcaption>
-    </figure>
+    blob.addEventListener('click', () => {
+      // Pick random phrase
+      let idx = Math.floor(Math.random() * phrases.length);
+      phraseBox.textContent = phrases[idx];
 
-    <figure>
-      <img src="https://images.unsplash.com/photo-1594322436405-d184fe4f3764?auto=format&fit=crop&w=800&q=80" alt="Nasturtium" />
-      <figcaption>Nasturtium</figcaption>
-    </figure>
-  </section>
-
-  <footer>Images via Unsplash</footer>
+      // Show giggle bubble briefly
+      bubble.style.display = 'block';
+      setTimeout(() => {
+        bubble.style.opacity = 0;
+      }, 1000);
+      setTimeout(() => {
+        bubble.style.display = 'none';
+        bubble.style.opacity = 1;
+      }, 2000);
+    });
+  </script>
 </body>
 </html>
